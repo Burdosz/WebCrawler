@@ -9,7 +9,7 @@ if (!Uri.TryCreate(targetSite, UriKind.Absolute, out var targetSiteUri))
     return;
 }
 
-var serviceProvider = ServiceProviderExtensions.BuildServiceProvider();
+var serviceProvider = Startup.BuildServiceProvider();
 var crawler = serviceProvider.GetRequiredService<ICrawler>();
 
 crawler.Crawl(targetSiteUri);
