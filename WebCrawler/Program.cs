@@ -1,19 +1,15 @@
-﻿// See https://aka.ms/new-console-template for more information
-
-using System.Text;
-
-Console.WriteLine("Hello, World!");
-
-StringBuilder builder = new();
-builder.AppendLine("The following arguments are passed:");
+﻿using Microsoft.Extensions.DependencyInjection;
+using WebCrawler;
 
 var targetSite = args[0]; // first argument for the console app should be the website to crawl.
 
-//Validate argument
 if (!Uri.TryCreate(targetSite, UriKind.Absolute, out var targetSiteUri))
 {
     Console.WriteLine("Invalid uri provided");
+    return;
 }
 
-// Setup crawling
-// Figure out the domain, set all bells and whistles
+var serviceProvider = ServiceProviderExtensions.BuildServiceProvider();
+var crawler = serviceProvider.GetRequiredService<ICrawler>();
+
+crawler.Crawl(targetSiteUri);
