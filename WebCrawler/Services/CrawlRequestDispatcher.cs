@@ -1,5 +1,3 @@
-using System.Collections.Concurrent;
-using HtmlAgilityPack;
 using Microsoft.Extensions.Options;
 using WebCrawler.Config;
 
