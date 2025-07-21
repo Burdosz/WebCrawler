@@ -1,4 +1,4 @@
-namespace WebCrawler.Tests;
+namespace WebCrawler.Tests.Services;
 
 public class CrawlerTests
 {
