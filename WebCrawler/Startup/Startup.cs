@@ -1,8 +1,9 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using WebCrawler.Config;
+using WebCrawler.Services;
 
-namespace WebCrawler;
+namespace WebCrawler.Startup;
 
 public class Startup
 {
@@ -16,7 +17,15 @@ public class Startup
         
         services.Configure<CrawlerSettings>(configuration.GetSection(CrawlerSettings.SectionName));
         
-        services.AddSingleton<ICrawler, Crawler>();
+        services.AddSingleton<VisitedRepository>();
+        services.AddTransient<IWriteVisited>(sp => sp.GetRequiredService<VisitedRepository>());
+        services.AddTransient<IReadVisited>(sp => sp.GetRequiredService<VisitedRepository>());
+        services.AddSingleton<IPageQueue, PageQueue>();
+        services.AddSingleton<ICrawlRequestSender, CrawlRequestSender>();
+        services.AddSingleton<ICrawlRequestHandler, CrawlRequestHandler>();
+        services.AddSingleton<ICrawler, CrawlRequestDispatcher>();
+        services.AddSingleton<IWriter, ConsoleWriter>();
+        services.AddSingleton<ICrawledUriBuilder, CrawledUriBuilder>();
         
         var serviceProvider = services.BuildServiceProvider();
         return serviceProvider;
