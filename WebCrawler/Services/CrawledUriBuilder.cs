@@ -9,7 +9,8 @@ public class CrawledUriBuilder : ICrawledUriBuilder
 {
     public Uri? Build(Uri parentPage, string link)
     {
-        if (string.IsNullOrWhiteSpace(link)) 
+        //It would be nice to have a separate service to validate the URI is satisfying the criteria.
+        if (string.IsNullOrWhiteSpace(link))
             return null;
         
         if (link.StartsWith("/"))

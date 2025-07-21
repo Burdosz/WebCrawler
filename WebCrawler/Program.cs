@@ -1,5 +1,4 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using WebCrawler;
 using WebCrawler.Services;
 using WebCrawler.Startup;
 
