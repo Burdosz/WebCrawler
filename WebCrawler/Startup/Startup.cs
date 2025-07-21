@@ -16,6 +16,14 @@ public class Startup
         
         var services = new ServiceCollection();
         
+        RegisterServices(services, configuration);
+
+        var serviceProvider = services.BuildServiceProvider();
+        return serviceProvider;
+    }
+
+    private static void RegisterServices(ServiceCollection services, IConfigurationRoot configuration)
+    {
         services.Configure<CrawlerSettings>(configuration.GetSection(CrawlerSettings.SectionName));
         
         services.AddSingleton<VisitedRepository>();
@@ -28,8 +36,5 @@ public class Startup
         services.AddSingleton<ICrawler, CrawlRequestDispatcher>();
         services.AddSingleton<IWriter, ConsoleWriter>();
         services.AddSingleton<ICrawledUriBuilder, CrawledUriBuilder>();
-        
-        var serviceProvider = services.BuildServiceProvider();
-        return serviceProvider;
     }
 }
