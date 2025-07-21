@@ -1,3 +1,4 @@
+using HtmlAgilityPack;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using WebCrawler.Config;
@@ -18,6 +19,7 @@ public class Startup
         services.Configure<CrawlerSettings>(configuration.GetSection(CrawlerSettings.SectionName));
         
         services.AddSingleton<VisitedRepository>();
+        services.AddSingleton<HtmlWeb>(_ => new HtmlWeb());
         services.AddTransient<IWriteVisited>(sp => sp.GetRequiredService<VisitedRepository>());
         services.AddTransient<IReadVisited>(sp => sp.GetRequiredService<VisitedRepository>());
         services.AddSingleton<IPageQueue, PageQueue>();
